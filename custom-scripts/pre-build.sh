@@ -11,11 +11,10 @@ cp $BASE_DIR/../custom-scripts/hello/hello-i686 $BASE_DIR/target/usr/bin/hello-i
 chmod +x $BASE_DIR/target/usr/bin/hello-i686
 
 # Configuração para o TP1
-cp $BASE_DIR/../custom-scripts/TP1/server.py $BASE_DIR/target/root
-chmod +x $BASE_DIR/target/root
-#cp $BASE_DIR/../custom-scripts/TP1/index.html $BASE_DIR/target/root
-#chmod +x $BASE_DIR/target/root/index.html
-#cp $BASE_DIR/../custom-scripts/TP1/server.py $BASE_DIR/target/usr/bin/server.py
-#chmod +x $BASE_DIR/target/usr/bin/server.py
-#cp $BASE_DIR/../custom-scripts/TP1/server-init.sh $BASE_DIR/target/etc/init.d
-#chmod +x $BASE_DIR/target/etc/init.d/server-init.sh
+#cp $BASE_DIR/../custom-scripts/TP1/server.py $BASE_DIR/target/root
+#chmod +x $BASE_DIR/target/root
+
+cp $BASE_DIR/../custom-scripts/TP1/S51server-init $BASE_DIR/target/etc/init.d
+chmod +x $BASE_DIR/target/etc/init.d/S51server-init
+cp $BASE_DIR/../custom-scripts/TP1/server.py $BASE_DIR/target/usr/bin/server.py
+chmod +x $BASE_DIR/target/usr/bin/server.py

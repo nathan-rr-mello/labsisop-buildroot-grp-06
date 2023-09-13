@@ -57,5 +57,5 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
 
 Handler = MyRequestHandler
 with socketserver.TCPServer(('0.0.0.0', 8080), Handler) as server:
-    print("Server TP1 OK")
+    #print("Server TP1 OK")
     server.serve_forever()
