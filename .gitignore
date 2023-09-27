@@ -1,7 +1,6 @@
 /output
 /dl
 /.auto.deps
-/.config
 *.depend
 *.o
 /*.patch
