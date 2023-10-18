@@ -1,6 +1,13 @@
 #!/bin/sh
 
 # export LINUX_OVERRIDE_SRCDIR=/workspaces/linux-4.13.9
+# sudo qemu-system-i386 --device e1000,netdev=eth0,mac=aa:bb:cc:dd:ee:ff --netdev tap,id=eth0,script=custom-scripts/qemu-ifup --kernel output/images/bzImage --hda output/images/rootfs.ext2 --nographic --append "console=ttyS0 root=/dev/sda"
+# qemu-system-i386 --kernel output/images/bzImage --hda output/images/rootfs.ext2 --hdb sdb.bin --nographic --append "console=ttyS0 root=/dev/sda"
+# modprobe sstf-iosched
+# echo sstf > /sys/block/sdb/queue/scheduler
+# cat /sys/block/sdb/queue/scheduler
+# sector_read
+
 
 # Configuração de rede
 cp $BASE_DIR/../custom-scripts/S41network-config $BASE_DIR/target/etc/init.d
@@ -20,3 +27,6 @@ chmod +x $BASE_DIR/target/usr/bin/server.py
 
 # Driver teste
 make -C $BASE_DIR/../modules/simple_driver/
+
+# make sstf
+make -C $BASE_DIR/../modules/T2_SSTF/
