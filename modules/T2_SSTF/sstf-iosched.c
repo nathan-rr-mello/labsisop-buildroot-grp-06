@@ -11,19 +11,19 @@
 #include <linux/slab.h>
 #include <linux/init.h>
 
+long long unsigned lastSector = 0;		/* AQUI */
+
 /* SSTF data structure. */
 struct sstf_data {
 	struct list_head queue;
 };
 
-static void sstf_merged_requests(struct request_queue *q, struct request *rq,
-				 struct request *next)
-{
+static void sstf_merged_requests(struct request_queue *q, struct request *rq, struct request *next) {
 	list_del_init(&next->queuelist);
 }
 
 /* Esta função despacha o próximo bloco a ser lido. */
-static int sstf_dispatch(struct request_queue *q, int force){
+static int sstf_dispatch(struct request_queue *q, int force) {
 	struct sstf_data *nd = q->elevator->elevator_data;
 	char direction = 'R';
 	struct request *rq;
@@ -34,18 +34,32 @@ static int sstf_dispatch(struct request_queue *q, int force){
 	 * Antes de retornar da função, imprima o sector que foi atendido.
 	 */
 
-	rq = list_first_entry_or_null(&nd->queue, struct request, queuelist);
+	struct request *listRq; 			
+	struct request *shortRq; 			
+	struct list_head *p; 				
+
+	shortRq = list_first_entry_or_null(&nd->queue, struct request, queuelist);
+
+	/* Verifica o próximo */
+	list_for_each(p, &nd->queue) {
+		listRq = list_entry(p, struct request, queuelist);
+		if(abs(blk_rq_pos(listRq)-lastSector) < abs(blk_rq_pos(shortRq)-lastSector)) {
+			shortRq = listRq;
+		}
+	}
+
+	rq = shortRq;
 	if (rq) {
+		lastSector = blk_rq_pos(rq); /*Atauliza quem foi o último*/
 		list_del_init(&rq->queuelist);
 		elv_dispatch_sort(q, rq);
 		printk(KERN_EMERG "[SSTF] dsp %c %llu\n", direction, blk_rq_pos(rq));
-
 		return 1;
 	}
 	return 0;
 }
 
-static void sstf_add_request(struct request_queue *q, struct request *rq){
+static void sstf_add_request(struct request_queue *q, struct request *rq) {
 	struct sstf_data *nd = q->elevator->elevator_data;
 	char direction = 'R';
 
@@ -59,7 +73,7 @@ static void sstf_add_request(struct request_queue *q, struct request *rq){
 	printk(KERN_EMERG "[SSTF] add %c %llu\n", direction, blk_rq_pos(rq));
 }
 
-static int sstf_init_queue(struct request_queue *q, struct elevator_type *e){
+static int sstf_init_queue(struct request_queue *q, struct elevator_type *e) {
 	struct sstf_data *nd;
 	struct elevator_queue *eq;
 
@@ -89,8 +103,7 @@ static int sstf_init_queue(struct request_queue *q, struct elevator_type *e){
 	return 0;
 }
 
-static void sstf_exit_queue(struct elevator_queue *e)
-{
+static void sstf_exit_queue(struct elevator_queue *e) {
 	struct sstf_data *nd = e->elevator_data;
 
 	/* Implementação da finalização da fila (queue).
@@ -108,28 +121,26 @@ static struct elevator_type elevator_sstf = {
 		.elevator_merge_req_fn		= sstf_merged_requests,
 		.elevator_dispatch_fn		= sstf_dispatch,
 		.elevator_add_req_fn		= sstf_add_request,
-		.elevator_init_fn		= sstf_init_queue,
-		.elevator_exit_fn		= sstf_exit_queue,
+		.elevator_init_fn			= sstf_init_queue,
+		.elevator_exit_fn			= sstf_exit_queue,
 	},
 	.elevator_name = "sstf",
 	.elevator_owner = THIS_MODULE,
 };
 
 /* Inicialização do driver. */
-static int __init sstf_init(void)
-{
+static int __init sstf_init(void) {
 	return elv_register(&elevator_sstf);
 }
 
 /* Finalização do driver. */
-static void __exit sstf_exit(void)
-{
+static void __exit sstf_exit(void) {
 	elv_unregister(&elevator_sstf);
 }
 
 module_init(sstf_init);
 module_exit(sstf_exit);
 
-MODULE_AUTHOR("Miguel Xavier");
+MODULE_AUTHOR("EduardoMartins_BernardoFiorini_NathanMello");
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("SSTF IO scheduler");
