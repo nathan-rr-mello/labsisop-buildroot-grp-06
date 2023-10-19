@@ -8,6 +8,8 @@
 # cat /sys/block/sdb/queue/scheduler
 # sector_read
 
+# killall qemu-system-i386
+
 
 # Configuração de rede
 cp $BASE_DIR/../custom-scripts/S41network-config $BASE_DIR/target/etc/init.d
