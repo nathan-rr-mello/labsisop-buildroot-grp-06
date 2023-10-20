@@ -34,21 +34,21 @@ static int sstf_dispatch(struct request_queue *q, int force) {
 	 * Antes de retornar da função, imprima o sector que foi atendido.
 	 */
 
-	struct request *listRq; 			
-	struct request *shortRq; 			
-	struct list_head *p; 				
+	struct request *list_rq; 			
+	struct request *next_rq; 			
+	struct list_head *ptr; 				
 
-	shortRq = list_first_entry_or_null(&nd->queue, struct request, queuelist);
+	next_rq = list_first_entry_or_null(&nd->queue, struct request, queuelist);
 
 	/* Verifica o próximo */
-	list_for_each(p, &nd->queue) {
-		listRq = list_entry(p, struct request, queuelist);
-		if(abs(blk_rq_pos(listRq)-lastSector) < abs(blk_rq_pos(shortRq)-lastSector)) {
-			shortRq = listRq;
+	list_for_each(ptr, &nd->queue) {
+		list_rq = list_entry(ptr, struct request, queuelist);
+		if(abs(blk_rq_pos(list_rq)-lastSector) < abs(blk_rq_pos(next_rq)-lastSector)) {
+			next_rq = list_rq;
 		}
 	}
 
-	rq = shortRq;
+	rq = next_rq;
 	if (rq) {
 		lastSector = blk_rq_pos(rq); /*Atauliza quem foi o último*/
 		list_del_init(&rq->queuelist);
