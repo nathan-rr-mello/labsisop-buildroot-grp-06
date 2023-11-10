@@ -8,6 +8,8 @@
 # cat /sys/block/sdb/queue/scheduler
 # sector_read
 
+#mount -t tracefs none /sys/kernel/tracing
+
 # killall qemu-system-i386
 
 
@@ -32,3 +34,5 @@ make -C $BASE_DIR/../modules/simple_driver/
 
 # make sstf
 make -C $BASE_DIR/../modules/T2_SSTF/
+
+#

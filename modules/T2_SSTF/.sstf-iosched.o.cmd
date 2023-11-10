@@ -1,4 +1,4 @@
-cmd_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := gcc -Wp,-MD,/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/.sstf-iosched.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/9/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m32 -msoft-float -mregparm=3 -freg-struct-return -fno-pic -mpreferred-stack-boundary=2 -march=i686 -Wa,-mtune=generic32 -ffreestanding -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -Wno-int-in-bool-context -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"sstf_iosched"'  -DKBUILD_MODNAME='"sstf_iosched"' -c -o /workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o /workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.c
+cmd_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := gcc -Wp,-MD,/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/.sstf-iosched.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/9/include -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m32 -msoft-float -mregparm=3 -freg-struct-return -fno-pic -mpreferred-stack-boundary=2 -march=i686 -Wa,-mtune=generic32 -ffreestanding -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_CRC32=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -pipe -Wno-sign-compare -fno-asynchronous-unwind-tables -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -Wno-int-in-bool-context -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"sstf_iosched"'  -DKBUILD_MODNAME='"sstf_iosched"' -c -o /workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o /workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.c
 
 source_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := /workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.c
 
@@ -330,6 +330,10 @@ deps_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := \
   arch/x86/include/uapi/asm/ioctl.h \
   include/asm-generic/ioctl.h \
   include/uapi/asm-generic/ioctl.h \
+  include/linux/tracepoint-defs.h \
+  include/linux/static_key.h \
+  include/linux/jump_label.h \
+    $(wildcard include/config/jump/label.h) \
   arch/x86/include/asm/special_insns.h \
   arch/x86/include/asm/fpu/types.h \
   include/linux/personality.h \
@@ -350,8 +354,6 @@ deps_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := \
   include/linux/spinlock_types.h \
   include/linux/rwlock_types.h \
   arch/x86/include/asm/spinlock.h \
-  include/linux/jump_label.h \
-    $(wildcard include/config/jump/label.h) \
   arch/x86/include/asm/qspinlock.h \
   include/asm-generic/qspinlock.h \
   arch/x86/include/asm/qrwlock.h \
@@ -716,6 +718,7 @@ deps_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := \
   include/uapi/linux/auxvec.h \
   arch/x86/include/uapi/asm/auxvec.h \
   include/linux/uprobes.h \
+  arch/x86/include/asm/uprobes.h \
   include/linux/capability.h \
   include/uapi/linux/capability.h \
   include/linux/semaphore.h \
@@ -773,8 +776,6 @@ deps_/workspaces/labsisop-buildroot-grp-06/modules/T2_SSTF/sstf-iosched.o := \
     $(wildcard include/config/swap.h) \
     $(wildcard include/config/thp/swap.h) \
     $(wildcard include/config/ksm.h) \
-  include/linux/tracepoint-defs.h \
-  include/linux/static_key.h \
   arch/x86/include/asm/pgtable.h \
     $(wildcard include/config/debug/wx.h) \
     $(wildcard include/config/have/arch/transparent/hugepage/pud.h) \

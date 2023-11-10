@@ -1,9 +1,8 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <semaphore.h>
 
-#define BUFFER_LENGTH 100
+#define BUFFER_LENGTH 1000
 #define N_THREADS 5
 
 pthread_mutex_t lock;
