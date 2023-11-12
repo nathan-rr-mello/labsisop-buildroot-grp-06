@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFFER_LENGTH 12000000
+#define BUFFER_LENGTH 10000000
 
 pthread_mutex_t lock;
 pthread_barrier_t bar;
@@ -65,6 +65,7 @@ int main(int argc, char **argv)
     char filename_1[30] = "./logs/brute-output-";
     strcat(filename_1, argv[2]);
     FILE *file_1 = fopen(filename_1, "w");
+    fprintf(file_1, "\nThreads: %s\nProcessors: %s\n\n", argv[1], argv[2]);
     if (file_1 == NULL) 
         return 1;
     for (int j = 0; j < BUFFER_LENGTH; j++)
@@ -75,23 +76,21 @@ int main(int argc, char **argv)
     char filename_2[30] = "./logs/output-";
     strcat(filename_2, argv[2]);
     FILE *file_2 = fopen(filename_2, "w");
+    fprintf(file_1, "\nThreads: %s\nProcessors: %s\n\n", argv[1], argv[2]);
     int* cont = (int*) malloc(nThreads * sizeof(int));
 	for (int i = 0; i < nThreads; i++)
         cont[i] = 0;
 	for(int i = 0; i < BUFFER_LENGTH; i++){
         int idx = (int)(buffer[i] - 'A');
 		if(i == 0){
-			//printf("%c", buffer[i]);
-            fputc(buffer[i], file_2);
+            //fputc(buffer[i], file_2);
             cont[idx] += 1;
 		} else if(buffer[i] != buffer[i-1]) {
-			//printf("%c", buffer[i]);
-            fputc(buffer[i], file_2);
+            //fputc(buffer[i], file_2);
             cont[idx] += 1;
 		}
 	}
-	//printf("\n");
-    fprintf(file_2, "\n");
+    //fprintf(file_2, "\n");
 	for(int i = 0; i < nThreads; i++){
 		//printf("%c = %d\n", i+0x41 ,cont[i]);
         fprintf(file_2, "%c = %d\n", i + 0x41, cont[i]);

@@ -1,5 +1,8 @@
-DCABDBCA
-A = 2
+
+Threads: 4
+Processors: 1
+
+A = 3
 B = 2
 C = 2
 D = 2
