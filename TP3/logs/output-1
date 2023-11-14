@@ -1,8 +1,9 @@
 
 Threads: 4
 Processors: 1
+Buffer size: 10000000
 
-A = 3
+A = 2
 B = 2
 C = 2
 D = 2

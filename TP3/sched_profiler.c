@@ -6,13 +6,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFFER_LENGTH 10000000
-
 pthread_mutex_t lock;
 pthread_barrier_t bar;
 
 pthread_t* prcs;
 char* buffer;
+long bufferSize;
 int ptr = 0;
 
 // Funçaõ que cada thread irá executar;
@@ -26,7 +25,7 @@ void *start(void *arg){
 
     while(1){ 
         pthread_mutex_lock(&lock);
-        if (ptr >= BUFFER_LENGTH){
+        if (ptr >= bufferSize){
             pthread_mutex_unlock(&lock);
 			break;
         }
@@ -40,17 +39,18 @@ void *start(void *arg){
 // Funçaõ pricipal;
 int main(int argc, char **argv)
 {
-    if (argc != 3) {
-        printf("Usage: %s <number_of_threads> <number_of_processors>\n", argv[0]);
+    if (argc != 4) {
+        printf("Usage: %s <number_of_threads> <number_of_processors> <buffer_size>\n", argv[0]);
         return 1;
     }
     int nThreads = atoi(argv[1]);
+    bufferSize = atoi(argv[3]);
 
     pthread_mutex_init(&lock, NULL);
 	pthread_barrier_init(&bar, NULL, nThreads);
     
     long int i;
-    buffer = (char *)malloc(BUFFER_LENGTH * sizeof(char));
+    buffer = (char *)malloc(bufferSize * sizeof(char));
     prcs = (pthread_t *)malloc(nThreads * sizeof(pthread_t));
 
     // Cria as threads;
@@ -65,10 +65,10 @@ int main(int argc, char **argv)
     char filename_1[30] = "./logs/brute-output-";
     strcat(filename_1, argv[2]);
     FILE *file_1 = fopen(filename_1, "w");
-    fprintf(file_1, "\nThreads: %s\nProcessors: %s\n\n", argv[1], argv[2]);
+    fprintf(file_1, "\nThreads: %s\nProcessors: %s\nBuffer size: %s\n\n", argv[1], argv[2], argv[3]);
     if (file_1 == NULL) 
         return 1;
-    for (int j = 0; j < BUFFER_LENGTH; j++)
+    for (int j = 0; j < bufferSize; j++)
         fputc(buffer[j], file_1);
     fclose(file_1);
 
@@ -76,11 +76,11 @@ int main(int argc, char **argv)
     char filename_2[30] = "./logs/output-";
     strcat(filename_2, argv[2]);
     FILE *file_2 = fopen(filename_2, "w");
-    fprintf(file_1, "\nThreads: %s\nProcessors: %s\n\n", argv[1], argv[2]);
+    fprintf(file_1, "\nThreads: %s\nProcessors: %s\nBuffer size: %s\n\n", argv[1], argv[2], argv[3]);
     int* cont = (int*) malloc(nThreads * sizeof(int));
 	for (int i = 0; i < nThreads; i++)
         cont[i] = 0;
-	for(int i = 0; i < BUFFER_LENGTH; i++){
+	for(int i = 0; i < bufferSize; i++){
         int idx = (int)(buffer[i] - 'A');
 		if(i == 0){
             //fputc(buffer[i], file_2);
